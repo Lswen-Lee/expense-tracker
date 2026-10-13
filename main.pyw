@@ -14,6 +14,7 @@ from storage import EXPENSE, INCOME, KIND_LABEL, Ledger, following_month, month_
 
 APP_DIR = Path(__file__).resolve().parent
 DB_PATH = APP_DIR / "記帳資料.db"
+ICON_PATH = APP_DIR / "logo.ico"
 
 FONT = "Microsoft JhengHei UI"
 SURFACE = "#ffffff"
@@ -278,6 +279,8 @@ class App(tk.Tk):
         super().__init__()
         self.withdraw()
         self.title("記帳系統")
+        if ICON_PATH.exists():
+            self.iconbitmap(default=str(ICON_PATH))  # default：對話框也用同一個圖示
         self.ledger = Ledger(db_path)
         self.scale = self.winfo_fpixels("1i") / 96
         self.selected = date.today()
@@ -982,6 +985,8 @@ class App(tk.Tk):
 
 if __name__ == "__main__":
     try:
+        # 讓工作列顯示程式自己的圖示，而不是 Python 的
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ledger.app")
         ctypes.windll.shcore.SetProcessDpiAwareness(1)  # 高解析度螢幕上文字才不會模糊
     except (AttributeError, OSError):
         pass
