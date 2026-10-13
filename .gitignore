@@ -8,5 +8,6 @@
 
 # 自訂的視窗圖示（使用的圖片可能有版權，不隨程式公開）
 logo.ico
+logo.png
 
 __pycache__/
